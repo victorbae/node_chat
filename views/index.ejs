@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Chat dos Bixo</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-4 mt-5">
+        <div class="row">
+          <h4 class="display-5">Salas</h4>
+        </div>
+        <div class="row mt-2">
+          <ul class="list-group-item-action col-12">
+            <a href="#" class="list-group-item list-group-item-action">Sala 1</a>
+            <a href="#" class="list-group-item list-group-item-action">Sala 2</a>
+          </ul>
+        </div>
+        <span class="my-3"></span>
+        <div class="row">
+          <h4 class="display-5">Usuarios</h4>
+        </div>
+        <div class="row mt-2">
+          <ul class="list-group-item-action col-12">
+            <a href="#" class="list-group-item list-group-item-action">João</a>
+            <a href="#" class="list-group-item list-group-item-action">Victor</a>
+            <a href="#" class="list-group-item list-group-item-action">Baesso</a>
+          </ul>
+        </div>
+      </div>
+      <div class="col-sm-8 mt-5">
+        <div class="row mensagens-lista">
+          <ul id="messages"></ul>
+        </div>
+        <div class="row">
+          <form action="/" method="POST" id="chatForm" class="col-12">
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" id="txt" autocomplete="off" autofocus="on" placeholder="Digite sua mensagem aqui..." aria-label="Recipient's username" aria-describedby="button-addon2">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="submit" id="button-addon2" data-toggle="tooltip" data-placement="top" title="Enviar"><i class="fas fa-paper-plane"></i> </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+<script src="/assets/js/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+<script src="../../socket.io/socket.io.js"></script>
+<script src="/assets/js/script.js"></script>
+
+</html>
