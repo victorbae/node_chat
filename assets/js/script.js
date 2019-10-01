@@ -19,5 +19,12 @@ socket.on('is_online', function(username) {
 });
 
 // ask username
-var username = prompt('Insira seu nome');
-socket.emit('username', username);
+function setName(){
+  var username = prompt('Insira seu nome');
+  while (username == undefined || username == null || username == "") {
+    var username = prompt('Insira seu nome animal');
+  }
+  socket.emit('username', username);
+}
+
+setName();
