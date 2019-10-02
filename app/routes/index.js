@@ -62,23 +62,6 @@ router.post('/register', function(req, res, next) {
 	}
 });
 
-// Social Authentication routes
-// 1. Login via Facebook
-router.get('/auth/facebook', passport.authenticate('facebook'));
-router.get('/auth/facebook/callback', passport.authenticate('facebook', {
-		successRedirect: '/rooms',
-		failureRedirect: '/',
-		failureFlash: true
-}));
-
-// 2. Login via Twitter
-router.get('/auth/twitter', passport.authenticate('twitter'));
-router.get('/auth/twitter/callback', passport.authenticate('twitter', {
-		successRedirect: '/rooms',
-		failureRedirect: '/',
-		failureFlash: true
-}));
-
 // Rooms
 router.get('/rooms', [User.isAuthenticated, function(req, res, next) {
 	Room.find(function(err, rooms){
@@ -88,15 +71,11 @@ router.get('/rooms', [User.isAuthenticated, function(req, res, next) {
 }]);
 
 // Chat Room
-router.get('/chat/:id', [User.isAuthenticated, function(req, res, next) {
+router.get('/chat/:id', [User.isAuthenticated, async function(req, res, next) {
 	var roomId = req.params.id;
-	Room.findById(roomId, function(err, room){
-		if(err) throw err;
-		if(!room){
-			return next();
-		}
-		res.render('chatroom', { user: req.user, room: room });
-	});
+	var room = await Room.findById(roomId);
+
+	res.render('chatroom', { user: req.user, room: room });
 
 }]);
 
@@ -112,17 +91,14 @@ router.get('/logout', function(req, res, next) {
 	res.redirect('/');
 });
 
-router.post('/decipher',function(req, res){
+router.post('/decipher', async function(req, res){
     var roomId = req.body.roomId;
     var msg = req.body.message;
 
-		console.log('RoomId   ' + roomId);
-		console.log('Message    ' + msg);
+		var roo = await Room.findById(roomId);
 
-    Room.findById(roomId, function(err, data){
-			console.log(data.privateKey);
-      return Cipher.decipher(msg, data.privateKey);
-    });
+    return await Cipher.decipher(msg, roo.privateKey);
+
 });
 
 

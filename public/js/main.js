@@ -84,7 +84,10 @@ var app = {
 
       // Append a new message
       socket.on('addMessage', function(message) {
-        app.helpers.decipher(message.content, $('#roomId').val());
+        $('#msgCripto').val(message.content);
+        console.log('MsgCript:  ' + $('#msgCripto').val());
+        console.log('roomId:  ' + $('#roomId').val());
+        app.helpers.decipher($('#msgCripto').val(), $('#roomId').val());
       });
     });
   },
@@ -180,6 +183,9 @@ var app = {
     },
 
     decipher: function(msg, roomId) {
+      console.log('Entrou no ajax');
+      console.log('msgCripto: ' + msg);
+      console.log('roomId: ' + roomId);
       $.ajax({
         'url': 'http://localhost:3000/decipher',
         'type': 'POST',
@@ -188,7 +194,8 @@ var app = {
           roomId: roomId
         },
         'success': function(data) {
-          app.helpers.addMessage(message);
+          console.log('sucesso : ' + data);
+          app.helpers.addMessage('meu pau');
         },
         'error': function(err) {
           console.log(err);

@@ -38,12 +38,11 @@ var ioEvents = function(io) {
 	});
 
 	// Chatroom namespace
-	io.of('/chatroom').on('connection', function(socket) {
+	io.of('/chatroom').on('connection', async function(socket) {
 
 		// Join a chatroom
-		socket.on('join', function(roomId) {
-			Room.findById(roomId, function(err, room){
-				if(err) throw err;
+		socket.on('join', async function(roomId) {
+			var room = await Room.findById(roomId);
 				if(!room){
 					// Assuming that you already checked in router that chatroom exists
 					// Then, if a room doesn't exist here, return an error to inform the client-side.
@@ -52,12 +51,12 @@ var ioEvents = function(io) {
 					// Check if user exists in the session
 					if(socket.request.session.passport == null){
 						return;
-					}
+				}
 
-					Room.addUser(room, socket, function(err, newRoom){
+				Room.addUser(room, socket, function(err, newRoom){
 
-						// Join the room channel
-						socket.join(newRoom.id);
+					// Join the room channel
+					socket.join(newRoom.id);
 
 						Room.getUsers(newRoom, socket, function(err, users, cuntUserInRoom){
 							if(err) throw err;
@@ -73,7 +72,6 @@ var ioEvents = function(io) {
 						});
 					});
 				}
-			});
 		});
 
 		// When a socket exits
@@ -101,15 +99,14 @@ var ioEvents = function(io) {
 		});
 
 		// When a new message arrives
-		socket.on('newMessage', function(roomId, message) {
+		socket.on('newMessage', async function(roomId, message) {
 
 			// No need to emit 'addMessage' to the current socket
 			// As the new message will be added manually in 'main.js' file
 			// socket.emit('addMessage', message);
-			Room.findById(roomId, function(err, data){
-				message.content = Cipher.cipher(message.content, data.publicKey);
+			var room = await Room.findById(roomId);
+				message.content = Cipher.cipher(message.content, room.publicKey);
 				socket.broadcast.to(roomId).emit('addMessage', message);
-			});
 		});
 
 	});

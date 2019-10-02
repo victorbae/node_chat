@@ -19,17 +19,26 @@ const keys = require('./keyGenerator');
     //cifrador/criptografador
     function cipher(msg, publicKey){
         let pub = ursa.createPublicKey(publicKey, 'base64');
-        let msgBuffer = new Buffer(msg);
+        //let msgBuffer = new Buffer(msg);
         let msgCripto = pub.encrypt(msg);
-        return msgCripto.toString();
+        return msgCripto;
     }
 
     //decifrador/decriptografador
-    function decipher(msgCripto, privateKey){
-        var priv = ursa.createPrivateKey(privateKey, '', 'base64');
-        var msgDescripto = priv.decrypt(msgCripto, 'base64', 'utf8', ursa.RSA_PKCS1_PADDING);
+    async function decipher(msgCripto, privateKey){
+
+        console.log('mensagem cripto:   ' + msgCripto);
+
+        let priv =  await ursa.createPrivateKey(privateKey, '', 'base64');
+
+        console.log('Private Key:  ' + privateKey);
+
+        let msgDescripto = await priv.publicDecrypt(msgCripto, 'base64', 'utf-8', ursa.RSA_NO_PADDING);
+
         console.log("===>>> + " + msgDescripto);
+
         return msgDescripto.toString();
+
     }
 
 module.exports.generatorKeys = generatorKeys;

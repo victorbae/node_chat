@@ -8,9 +8,6 @@
   </head>
   <body>
     <div class="container clearfix">
-      <input type="hidden" id="roomId" value="<%= room.id %>">
-
-      </div>
       <div class="chat">
         <div class="chat-header clearfix">
           <img src="<%= user.picture %>" alt="avatar">
@@ -27,6 +24,8 @@
         </div> <!-- end chat-history -->
 
         <div class="chat-message clearfix">
+          <input type="hidden" id="roomId" value="<%= room.id %>">
+          <input type="hidden" id=msgCripto>
           <textarea name="message" placeholder ="Type your message" rows="3"></textarea>
           <button type="submit">Send</button>
         </div> <!-- end chat-message -->
