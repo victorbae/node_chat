@@ -25,8 +25,8 @@ var ioEvents = function(io) {
 					var key = Cipher.generatorKeys();
 					Room.create({
 						title: title,
-						privateKey: Cipher.getPrivateKey(key),
-						publicKey: Cipher.getPublicKey(key)
+						publicKey: Cipher.getPublicKey(key),
+						privateKey: Cipher.getPrivateKey(key)
 					}, function(err, newRoom){
 						if(err) throw err;
 						socket.emit('updateRoomsList', newRoom);
@@ -105,8 +105,16 @@ var ioEvents = function(io) {
 			// As the new message will be added manually in 'main.js' file
 			// socket.emit('addMessage', message);
 			var room = await Room.findById(roomId);
-				message.content = Cipher.cipher(message.content, room.publicKey);
-				socket.broadcast.to(roomId).emit('addMessage', message);
+				var pqp = await Cipher.cipher(message.content, room.publicKey);
+				
+				var message22 = {
+					content: pqp,
+					username: message.username,
+					date: Date.now()
+				};
+
+				console.log('messageSocket:  ' + message22.content);
+				socket.broadcast.to(roomId).emit('addMessage', message22);
 		});
 
 	});

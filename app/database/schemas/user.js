@@ -21,7 +21,8 @@ var UserSchema = new Mongoose.Schema({
     socialId: { type: String, default: null },
     picture:  { type: String, default:  DEFAULT_USER_PICTURE},
     publicKey: { type: String, required: true},
-    privateKey: { type: String, required: true}
+    privateKey: { type: String, required: true},
+    codRoom: { type: String, required: true },
 });
 
 /**

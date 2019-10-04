@@ -11,7 +11,8 @@ var RoomSchema = new Mongoose.Schema({
     title: { type: String, required: true },
     connections: { type: [{ userId: String, socketId: String }]},
     publicKey: { type: String, required: true },
-    privateKey: { type: String, required: true }
+    privateKey: { type: String, required: true },
+    isUsr: { type: String, default: "false" }
 });
 
 var roomModel = Mongoose.model('room', RoomSchema);

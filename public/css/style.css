@@ -8,7 +8,7 @@ body {
   background: #C5DDEB;
   font-family: "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;   
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .container {
@@ -63,6 +63,12 @@ body {
   background: #F2F5F8;
   color: #434651;
 }
+.chh, .room {
+  width: 760px;
+  float: left;
+  background: #F2F5F8;
+  color: #434651;
+}
 .chat .chat-header, .room .room-header {
   padding: 20px;
   border-bottom: 2px solid white;
@@ -80,6 +86,26 @@ body {
   font-size: 16px;
 }
 .chat .chat-header .chat-num-users, .room .room-header .room-num-rooms {
+  color: #92959E;
+}
+.chh .chat-header, .room .room-header {
+  padding: 20px;
+  border-bottom: 2px solid white;
+}
+.chh .chat-header img, .room .room-header img {
+  float: left;
+}
+.chh .chat-header .chat-about, .room .room-header .room-about {
+  float: left;
+  padding-left: 10px;
+  margin-top: 6px;
+}
+.chh .chat-header .chat-room, .room .room-header .room-title {
+  font-weight: bold;
+  font-size: 16px;
+  margin-right: 80%;
+}
+.chh .chat-header .chat-num-users, .room .room-header .room-num-rooms {
   color: #92959E;
 }
 .fa-users, .fa-th-list {
@@ -131,6 +157,56 @@ body {
   padding: 20px;
 }
 .chat .chat-message textarea, .room .room-create input {
+  width: 100%;
+  border: none;
+  padding: 10px 20px;
+  font: 14px/22px "Roboto", Arial, sans-serif;
+  margin-bottom: 10px;
+  resize: none;
+}
+.chh .chat-history, .room .room-list {
+  padding: 10px 30px 20px;
+  border-bottom: 2px solid white;
+  overflow-y: scroll;
+  max-height: 580px;
+}
+.chh .chat-history .message-data {
+  margin-bottom: 15px;
+}
+.chh .chat-history .message-data-time {
+  color: #a8aab1;
+  padding-left: 6px;
+  font-size: 80%;
+}
+.chh .chat-history .message {
+  color: white;
+  padding: 18px 20px;
+  line-height: 26px;
+  font-size: 16px;
+  margin-bottom: 30px;
+  /*width: 90%;*/
+  position: relative;
+}
+.chh .chat-history .message:after {
+  bottom: 100%;
+  left: 7%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+  border-bottom-color: #86BB71;
+  border-width: 10px;
+  margin-left: -10px;
+}
+.chh .chat-history .my-message {
+  background: #86BB71;
+}
+.chh .chat-message, .room .room-create {
+  padding: 20px;
+}
+.chh .chat-message textarea, .room .room-create input {
   width: 100%;
   border: none;
   padding: 10px 20px;
@@ -253,13 +329,34 @@ ul {
   font-size: 20px;
   border-radius: 7px;
   margin-bottom: 10px;
-  width: 90%;
+  width: 97%;
+  position: relative;
+  cursor: pointer;
+  text-align: center;
+}
+.room .room-list ul {
+  padding-left: 0;
+}
+.room .room-list .usr-item {
+  color: white;
+  padding: 12px 14px;
+  line-height: 26px;
+  font-size: 20px;
+  border-radius: 7px;
+  margin-bottom: 10px;
+  width: 97%;
   position: relative;
   cursor: pointer;
   text-align: center;
 }
 .room .room-list .room-item {
   background: #86BB71;
+}
+.room .room-list .usr-item {
+  background: #86BB71;
+}
+.room .room-list .red {
+  background: red;
 }
 .room .room-list a {
   text-decoration: none;
@@ -280,16 +377,30 @@ ul {
     background-color: white;
 }
 .form-line {
-  position: absolute; 
+  position: absolute;
   left: 0px;
-  width: 360px; 
-  margin-top: 2px; 
+  width: 360px;
+  margin-top: 2px;
   border-bottom: 2px solid white;
 }
 .social-buttons div span {
   font-weight: bold;
 }
 .chat-message button, .room-create button, .controls a {
+  font-family: "Roboto", sans-serif;
+  float: right;
+  text-transform: uppercase;
+  outline: 0;
+  background: #86BB71;
+  border: 0;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+.chat-message button, .room-create button, .controls button {
   font-family: "Roboto", sans-serif;
   float: right;
   text-transform: uppercase;
@@ -322,7 +433,18 @@ a.logout-btn:hover, a.logout-btn:active, a.logout-btn:focus {
   text-align: center;
   border-bottom: 2px solid white;
 }
+.btn-chh {
+  width: 270px;
+  float: left;
+  margin: 0;
+  text-align: center;
+  margin-left: 42.8%;
+}
 .controls a {
+  width: 50%;
+  margin: 0;
+}
+.controls button {
   width: 50%;
   margin: 0;
 }
@@ -335,6 +457,9 @@ a.logout-btn:hover, a.logout-btn:active, a.logout-btn:focus {
   -moz-border-radius: 50%;
 }
 .controls a {
+  text-decoration: none;
+}
+.controls button {
   text-decoration: none;
 }
 .message.error {
@@ -356,4 +481,28 @@ a.logout-btn:hover, a.logout-btn:active, a.logout-btn:focus {
 }
 .chat .chat-history .my-message {
   text-align: initial;
+}
+
+.btn {
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border: 1px solid transparent;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  text-decoration: none;
+  color: #fff;
+  background-color: #86BB71;
+  border-color: #86BB71;
+  float: right;
+  font: 14px/22px "Roboto", Arial, sans-serif;
+  margin-left: 750px;
 }
